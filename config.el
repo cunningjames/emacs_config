@@ -252,3 +252,11 @@ Repeated invocations toggle between the two most recently open buffers."
 (require 'god-mode-isearch)
 (define-key isearch-mode-map (kbd "<escape>") #'god-mode-isearch-activate)
 (define-key god-mode-isearch-map (kbd "<escape>") #'god-mode-isearch-disable)
+
+(global-unset-key "\C-c f c")
+
+(define-key global-map (kbd "C-c f c") #'+fold/close)
+
+(global-set-key (kbd "C-c f o") #'+fold/open)
+(global-set-key (kbd "C-c f n") #'+fold/close)
+(global-set-key (kbd "C-c f t") #'+fold/toggle)
