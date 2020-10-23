@@ -13,6 +13,7 @@
 ;; (package! undo-tree)
 (package! undo-fu)
 (package! undo-fu-session)
+(package! org-roam)
 
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:

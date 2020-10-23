@@ -77,6 +77,7 @@ Repeated invocations toggle between the two most recently open buffers."
   (key-chord-define-global "ii" 'undo-fu-only-redo)
   (key-chord-define-global "fj" 'counsel-find-file)
   (key-chord-define-global "dk" '+ivy/switch-workspace-buffer)
+  (key-chord-define-global "DK" '+ivy/switch-buffer)
   (key-chord-define-global "S;" 'isearch-forward)
   (key-chord-define-global "R;" 'isearch-backward)
   (key-chord-define-global "qd" 'kill-buffer)
@@ -93,6 +94,7 @@ Repeated invocations toggle between the two most recently open buffers."
       "Press <ii> quickly to redo."
       "Press <fj> quickly to find a file."
       "Press <dk> quickly to switch workspace buffers."
+      "Press <DK> quickly to switch buffers."
       "Press <qd> quickly to kill the current buffer."
       "Press <dj> quickly to meta x.")))
 
@@ -149,6 +151,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 
 (defun toggle-window-split ()
+  "Toggle window split between horizontal and vertical."
   (interactive)
   (if (= (count-windows) 2)
       (let* ((this-win-buffer (window-buffer))
@@ -225,3 +228,27 @@ Repeated invocations toggle between the two most recently open buffers."
         (if undo-fu-session-compression
             (concat (file-name-sans-extension filename) ".zst")
           filename)))))
+
+(setq doom-themes-treemacs-enable-variable-pitch nil)
+
+
+(defun lsp-set-cfg ()
+    (let ((lsp-cfg `(:pyls (:configurationSources ("flake8")))))
+        ;; TODO: check lsp--cur-workspace here to decide per server / project
+        (lsp--set-configuration lsp-cfg)))
+(add-hook 'lsp-after-initialize-hook 'lsp-set-cfg)
+
+
+(god-mode)
+(global-set-key (kbd "<escape>") #'god-local-mode)
+(define-key god-local-mode-map (kbd "z") #'repeat)
+(define-key god-local-mode-map (kbd "i") #'god-local-mode)
+
+(global-set-key (kbd "C-x C-1") #'delete-other-windows)
+(global-set-key (kbd "C-x C-2") #'split-window-below)
+(global-set-key (kbd "C-x C-3") #'split-window-right)
+(global-set-key (kbd "C-x C-0") #'delete-window)
+
+(require 'god-mode-isearch)
+(define-key isearch-mode-map (kbd "<escape>") #'god-mode-isearch-activate)
+(define-key god-mode-isearch-map (kbd "<escape>") #'god-mode-isearch-disable)
