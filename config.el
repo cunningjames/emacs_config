@@ -260,3 +260,26 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key (kbd "C-c f o") #'+fold/open)
 (global-set-key (kbd "C-c f n") #'+fold/close)
 (global-set-key (kbd "C-c f t") #'+fold/toggle)
+
+
+(use-package! lsp-mode
+  :hook ((lsp-mode . lsp-headerline-breadcrumb-mode)
+         (lsp-mode . lsp-modeline-code-actions-mode)))
+
+(defun lsp-set-cfg ()
+    (let ((lsp-cfg `(:pyls (:configurationSources ("flake8")))))
+        ;; TODO: check lsp--cur-workspace here to decide per server / project
+        (lsp--set-configuration lsp-cfg)))
+(add-hook 'lsp-after-initialize-hook 'lsp-set-cfg)
+
+(setq lsp-pyls-plugins-pyflakes-enabled nil)
+(setq lsp-pyls-plugins-flake8-enabled t)
+(setq lsp-pyls-plugins-flake8-max-line-length 88)
+
+(setq-default fill-column 88)
+
+(lsp-treemacs-sync-mode 1)
+
+(setq hl-fill-column-mode nil)
+
+(setq exec-path (append exec-path '("/usr/local/opt/llvm/bin")))

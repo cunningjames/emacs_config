@@ -14,6 +14,8 @@
 (package! undo-fu)
 (package! undo-fu-session)
 (package! org-roam)
+(package! lsp-treemacs)
+(package! dap-mode)
 
 
 ;; To install SOME-PACKAGE from MELPA, ELPA or emacsmirror:
