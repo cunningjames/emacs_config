@@ -264,7 +264,19 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (use-package! lsp-mode
   :hook ((lsp-mode . lsp-headerline-breadcrumb-mode)
-         (lsp-mode . lsp-modeline-code-actions-mode)))
+         (lsp-mode . lsp-modeline-code-actions-mode)
+         (lsp-mode . company-mode))
+  :bind
+  (:map lsp-mode-map
+   ("<tab>" . company-indent-or-complete-common)))
+
+(use-package! company-mode
+  :bind
+  (:map company-active-map
+   ("<tab>" . company-complete-selection)))
+
+(with-eval-after-load 'company
+  (define-key company-active-map (kbd "<tab>") #'company-complete-selection))
 
 (defun lsp-set-cfg ()
     (let ((lsp-cfg `(:pyls (:configurationSources ("flake8")))))
@@ -283,3 +295,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (setq hl-fill-column-mode nil)
 
 (setq exec-path (append exec-path '("/usr/local/opt/llvm/bin")))
+
+
+(add-hook 'c-mode-hook
+          '(lambda () (setq c-basic-offset 2)))
