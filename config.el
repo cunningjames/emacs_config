@@ -296,6 +296,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 (setq exec-path (append exec-path '("/usr/local/opt/llvm/bin")))
 
-
 (add-hook 'c-mode-hook
           '(lambda () (setq c-basic-offset 2)))
+
+(setq js-indent-level 2)
