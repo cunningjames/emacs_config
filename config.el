@@ -283,3 +283,5 @@ Repeated invocations toggle between the two most recently open buffers."
 (setq hl-fill-column-mode nil)
 
 (setq exec-path (append exec-path '("/usr/local/opt/llvm/bin")))
+
+(setq js-indent-level 2)
